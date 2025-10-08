@@ -38,8 +38,8 @@ function Home() {
     navigate("/login");
   };
 
-  // Animation variants
-  const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } };
+  // Animation variants (no y movement now)
+  const fadeOnly = { hidden: { opacity: 0 }, visible: { opacity: 1 } };
   const staggerContainer = { hidden: {}, visible: { transition: { staggerChildren: 0.2 } } };
 
   return (
@@ -88,7 +88,7 @@ function Home() {
       {/* HERO SECTION */}
       <section className="relative flex flex-col items-center justify-center min-h-[90vh] text-center px-6 sm:px-12">
         <motion.h1
-          variants={fadeUp}
+          variants={fadeOnly}
           initial="hidden"
           animate="visible"
           transition={{ duration: 1 }}
@@ -98,7 +98,7 @@ function Home() {
         </motion.h1>
 
         <motion.p
-          variants={fadeUp}
+          variants={fadeOnly}
           initial="hidden"
           animate="visible"
           transition={{ delay: 0.3, duration: 1 }}
@@ -109,7 +109,7 @@ function Home() {
 
         <motion.button
           onClick={handleTogglePrompts}
-          whileHover={{ scale: 1.1, rotate: 2, textShadow: "0px 0px 8px rgb(255,255,255)" }}
+          whileHover={{ scale: 1.1, rotate: 2 }}
           whileTap={{ scale: 0.95 }}
           transition={{ type: "spring", stiffness: 300 }}
           className="mt-8 px-10 py-3 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold shadow-lg z-10"
@@ -135,7 +135,7 @@ function Home() {
           ].map((f, i) => (
             <motion.div
               key={i}
-              variants={fadeUp}
+              variants={fadeOnly}
               whileHover={{ scale: 1.05, boxShadow: "0px 0px 20px rgba(128,0,255,0.6)" }}
               className="p-6 rounded-2xl bg-[#151520] shadow-lg border border-gray-800 hover:border-purple-500 transition-all"
             >
@@ -151,8 +151,8 @@ function Home() {
       {showPrompts && isLoggedIn && (
         <motion.section
           ref={promptsRef}
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
           className="py-10 px-6 sm:px-12"
         >
@@ -163,8 +163,8 @@ function Home() {
 
       {/* VISION */}
       <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         transition={{ duration: 1 }}
         className="py-20 px-6 sm:px-12 bg-[#0e0e17] text-center"
       >
