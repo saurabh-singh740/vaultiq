@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { FaShareAlt, FaUser, FaGlobe, FaStar, FaHeart, FaComment } from "react-icons/fa";
-
+import { FaShareAlt, FaUser, FaGlobe, FaStar } from "react-icons/fa";
 
 const API_URL = "http://localhost:3000/api/community";
 
@@ -29,14 +28,10 @@ const PromptCard = ({ prompt, onView }) => (
     <h3 className="text-lg font-bold text-white mb-2 animate-pulse flex items-center gap-2">
       {prompt.title} <FaGlobe className="text-yellow-300" />
     </h3>
-    <p className="text-sm text-white/90 line-clamp-3">{prompt.description}</p>
+   <p className="text-sm text-white/90 line-clamp-3">{prompt.content || "No content available."}</p>
     <p className="mt-2 text-xs text-white/70 flex items-center gap-1">
       <FaUser /> {prompt.userId?.email || "Anonymous"}
     </p>
-    <div className="mt-3 flex gap-2 text-white/80">
-      <FaHeart className="hover:text-red-500 transition-all duration-300 cursor-pointer" />
-      <FaComment className="hover:text-blue-300 transition-all duration-300 cursor-pointer" />
-    </div>
   </motion.div>
 );
 
@@ -187,13 +182,6 @@ const CommunityFeed = () => {
           transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
         >
           <FaStar />
-        </motion.div>
-        <motion.div
-          className="absolute bottom-32 right-1/3 text-white/20 text-7xl animate-float-slow"
-          animate={{ rotate: [360, 0] }}
-          transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
-        >
-          <FaHeart />
         </motion.div>
       </div>
 
