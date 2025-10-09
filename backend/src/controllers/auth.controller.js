@@ -49,6 +49,7 @@ async function loginUser(req,res){
     res.cookie("token",token)
 
     res.status(200).json({message:"User logged in successfully",
+        token,
     user:{id:user._id,fullname:user.fullname,email:user.email}
     })
 }

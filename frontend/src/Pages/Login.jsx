@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 
 function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -45,7 +45,6 @@ function Login() {
         return Promise.reject(err);
       }
     );
-
     return () => axios.interceptors.response.eject(interceptor);
   }, []);
 
@@ -65,11 +64,14 @@ function Login() {
         { email: formData.email, password: formData.password },
         { withCredentials: true }
       );
+      console.log(res.data.token)
 
       if (res.status === 200) {
+        // ✅ Save token in localStorage for later use (e.g., sharing prompts)
         localStorage.setItem("vaultiq_token", res.data.token);
+
         setIsLoggedIn(true);
-        navigate("/");
+        navigate("/"); // Redirect after login
       }
     } catch (err) {
       setError(err.response?.data?.message || "Invalid credentials");
