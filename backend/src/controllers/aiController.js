@@ -1,42 +1,40 @@
 const Prompt = require('../models/prompt.model');
 const generatePrompts = require('../services/aiService');
 
-// Top 10 allowed categories
 const topCategories = [
-  "Technology",
-  "Science",
-  "Health",
-  "Education",
-  "Entertainment",
-  "Business",
-  "Lifestyle",
-  "Art",
-  "Sports",
-  "Politics"
+  "Technology", "Science", "Health", "Education", "Entertainment",
+  "Business", "Lifestyle", "Art", "Sports", "Politics",
+  "Environment", "Finance", "History", "Culture", "Food",
+  "Travel", "AI", "Software", "Hardware", "Social Media"
 ];
 
 exports.analyzePrompt = async (req, res) => {
   try {
     const { content, title } = req.body;
 
-    // Generate AI analysis
-    const aiResponse = await generatePrompts(content);
+    const aiResponse = await generatePrompts(content, {
+      prompt: `Classify this content into a single category from the list: ${topCategories.join(", ")}. 
+Return ONLY the category name in plain text.`
+    });
 
-    // Extract category from AI response (assume AI sends full text)
-    let aiCategory = "";
-    const categoryMatch = aiResponse.match(/Category:\s*(.*)/i);
-    if (categoryMatch && categoryMatch[1]) {
-      aiCategory = categoryMatch[1].trim();
-      // Normalize category to match top 10
-      const matched = topCategories.find(cat => 
-        cat.toLowerCase() === aiCategory.toLowerCase()
-      );
-      aiCategory = matched || "Other";
-    } else {
-      aiCategory = "Other";
+    let aiCategory = "Other";
+
+    // ✅ Clean the AI output: remove ```json blocks and extract category
+    const cleaned = aiResponse.replace(/```json|```/gi, "").trim();
+
+    try {
+      const parsed = JSON.parse(cleaned); // agar JSON hai
+      if (parsed.category) aiCategory = parsed.category.trim();
+    } catch {
+      // fallback: plain text
+      aiCategory = cleaned.split("\n")[0].trim();
     }
 
-    // Save prompt with AI category
+    // Normalize with topCategories
+    const matched = topCategories.find(cat => cat.toLowerCase() === aiCategory.toLowerCase());
+    aiCategory = matched || aiCategory;
+
+    // Save prompt
     const prompt = await Prompt.create({
       title,
       content,

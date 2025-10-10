@@ -1,13 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Shield, Brain, Archive } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import Prompts from "../components/Prompts";
 
 function Home() {
-  const [showPrompts, setShowPrompts] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const promptsRef = useRef(null);
   const navigate = useNavigate();
 
   const checkLogin = () => setIsLoggedIn(!!localStorage.getItem("vaultiq_token"));
@@ -23,12 +20,9 @@ function Home() {
     };
   }, []);
 
-  const handleTogglePrompts = () => {
+  const handleNavigatePrompts = () => {
     if (!isLoggedIn) return alert("Please login to manage prompts!");
-    setShowPrompts(true);
-    setTimeout(() => {
-      promptsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 100);
+    navigate("/prompts"); // ✅ Navigate to Prompts page
   };
 
   const handleLogout = () => {
@@ -38,7 +32,7 @@ function Home() {
     navigate("/login");
   };
 
-  // Animation variants (no y movement now)
+  // Animation variants
   const fadeOnly = { hidden: { opacity: 0 }, visible: { opacity: 1 } };
   const staggerContainer = { hidden: {}, visible: { transition: { staggerChildren: 0.2 } } };
 
@@ -108,7 +102,7 @@ function Home() {
         </motion.p>
 
         <motion.button
-          onClick={handleTogglePrompts}
+          onClick={handleNavigatePrompts}
           whileHover={{ scale: 1.1, rotate: 2 }}
           whileTap={{ scale: 0.95 }}
           transition={{ type: "spring", stiffness: 300 }}
@@ -146,20 +140,6 @@ function Home() {
           ))}
         </div>
       </motion.section>
-
-      {/* PROMPTS */}
-      {showPrompts && isLoggedIn && (
-        <motion.section
-          ref={promptsRef}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="py-10 px-6 sm:px-12"
-        >
-          <h2 className="text-3xl font-bold text-center mb-8">Manage Your Prompts</h2>
-          <Prompts />
-        </motion.section>
-      )}
 
       {/* VISION */}
       <motion.section
