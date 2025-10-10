@@ -4,7 +4,8 @@ import Prompts from "./components/Prompts";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Home from "./Pages/Home";
-import CommunityFeed from "./components/Communityfeed";// ✅ Correct path & case-sensitive
+import CommunityFeed from "./components/Communityfeed";
+import ExportPrompts from "./components/ExportPrompt"; // ✅ Export component
 
 function AppRoutes() {
   return (
@@ -17,18 +18,22 @@ function AppRoutes() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
 
-        {/* ✅ Community Feed route */}
+        {/* ✅ Community Feed */}
         <Route path="/community" element={<CommunityFeed />} />
 
-        {/* ✅ Prompts route (optional, if you want to use it) */}
+        {/* ✅ Prompts page */}
         <Route path="/prompts" element={<Prompts />} />
+
+        {/* ✅ Export Prompts page */}
+        <Route path="/export" element={<ExportPrompts />} />
 
         {/* ✅ 404 fallback */}
         <Route
           path="*"
           element={
-            <div className="text-center mt-20 text-gray-400 text-lg">
-              🚫 Page Not Found
+            <div className="flex flex-col items-center justify-center min-h-screen text-gray-500 text-lg animate-pulse">
+              🚫 Page Not Found  
+              <p className="text-sm mt-2 text-gray-400">Go back to Home 🏠</p>
             </div>
           }
         />
