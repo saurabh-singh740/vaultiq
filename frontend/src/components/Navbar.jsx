@@ -1,31 +1,42 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaBars, FaTimes, FaRobot } from "react-icons/fa";
+import {
+  FaBars,
+  FaTimes,
+  FaRobot,
+  FaHome,
+  FaLightbulb,
+  FaUsers,
+  FaFileExport,
+  FaBrain,
+  FaInfoCircle,
+  FaEnvelope,
+} from "react-icons/fa";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const [clickedLink, setClickedLink] = useState(null); // Track clicked link
+  const [clickedLink, setClickedLink] = useState(null);
 
   const links = [
-    { name: "Home", path: "/" },
-    { name: "Prompts", path: "/prompts" },
-    { name: "Community", path: "/community" },
-    { name: "Export", path: "/export" },
-    { name: "AI Analyzer", path: "/analyze" },
-    {name:"About",path:"/about"},
-    {name:"Contact",path:"/contact"}
+    { name: "Home", path: "/", icon: <FaHome /> },
+    { name: "Prompts", path: "/prompts", icon: <FaLightbulb /> },
+    { name: "Community", path: "/community", icon: <FaUsers /> },
+    { name: "Export", path: "/export", icon: <FaFileExport /> },
+    { name: "AI Analyzer", path: "/analyze", icon: <FaBrain /> },
+    { name: "About", path: "/about", icon: <FaInfoCircle /> },
+    { name: "Contact", path: "/contact", icon: <FaEnvelope /> },
   ];
 
   const handleClick = (name) => {
     setClickedLink(name);
-    setTimeout(() => setClickedLink(null), 600); // Reset after animation
-    setOpen(false); // Close mobile menu if open
+    setTimeout(() => setClickedLink(null), 600);
+    setOpen(false);
   };
 
   const floatAnimation = {
     initial: { y: 0, scale: 1 },
-    animate: { y: -10, scale: 1.1 },
+    animate: { y: -5, scale: 1.05 },
     transition: { yoyo: Infinity, duration: 0.6, ease: "easeInOut" },
   };
 
@@ -38,23 +49,24 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6">
           {links.map((link) => (
             <motion.div
               key={link.name}
               animate={clickedLink === link.name ? floatAnimation.animate : { y: 0, scale: 1 }}
               transition={floatAnimation.transition}
+              className="flex items-center gap-1"
             >
               <NavLink
                 to={link.path}
                 onClick={() => handleClick(link.name)}
                 className={({ isActive }) =>
-                  `text-white font-semibold hover:text-yellow-400 transition-colors duration-300 ${
+                  `text-white font-semibold hover:text-yellow-400 transition-colors duration-300 flex items-center gap-1 ${
                     isActive ? "underline decoration-yellow-400" : ""
                   }`
                 }
               >
-                {link.name}
+                {link.icon} {link.name}
               </NavLink>
             </motion.div>
           ))}
@@ -82,17 +94,18 @@ const Navbar = () => {
                 key={link.name}
                 animate={clickedLink === link.name ? floatAnimation.animate : { y: 0, scale: 1 }}
                 transition={floatAnimation.transition}
+                className="flex items-center gap-2"
               >
                 <NavLink
                   to={link.path}
                   onClick={() => handleClick(link.name)}
                   className={({ isActive }) =>
-                    `text-white font-semibold text-lg hover:text-yellow-400 transition-colors duration-300 ${
+                    `text-white font-semibold text-lg hover:text-yellow-400 transition-colors duration-300 flex items-center gap-2 ${
                       isActive ? "underline decoration-yellow-400" : ""
                     }`
                   }
                 >
-                  {link.name}
+                  {link.icon} {link.name}
                 </NavLink>
               </motion.div>
             ))}

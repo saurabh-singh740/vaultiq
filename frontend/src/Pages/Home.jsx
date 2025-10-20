@@ -22,7 +22,7 @@ function Home() {
 
   const handleNavigatePrompts = () => {
     if (!isLoggedIn) return alert("Please login to manage prompts!");
-    navigate("/prompts"); // ✅ Navigate to Prompts page
+    navigate("/prompts");
   };
 
   const handleLogout = () => {
@@ -32,23 +32,14 @@ function Home() {
     navigate("/login");
   };
 
-  // Animation variants
   const fadeOnly = { hidden: { opacity: 0 }, visible: { opacity: 1 } };
-  const staggerContainer = { hidden: {}, visible: { transition: { staggerChildren: 0.2 } } };
+  const staggerContainer = { hidden: {}, visible: { transition: { staggerChildren: 0 } } }; // no stagger delay
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0a0a0f] via-[#0d0d17] to-[#1a1a2e] text-white font-inter overflow-x-hidden relative">
       {/* Floating Background Blobs */}
-      <motion.div
-        className="absolute -top-32 -left-32 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"
-        animate={{ rotate: [0, 360] }}
-        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-      />
-      <motion.div
-        className="absolute -bottom-32 -right-32 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float-reverse"
-        animate={{ rotate: [360, 0] }}
-        transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
-      />
+      <div className="absolute -top-32 -left-32 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30" />
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30" />
 
       {/* AUTH BUTTONS */}
       <div className="absolute top-4 right-6 flex gap-4 z-20">
@@ -116,8 +107,7 @@ function Home() {
       <motion.section
         variants={staggerContainer}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
+        animate="visible" // ✅ changed from whileInView
         className="py-16 px-6 sm:px-12"
       >
         <h2 className="text-3xl font-bold text-center mb-10">Why Use VaultIQ?</h2>
@@ -144,7 +134,7 @@ function Home() {
       {/* VISION */}
       <motion.section
         initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        animate={{ opacity: 1 }} // ✅ changed
         transition={{ duration: 1 }}
         className="py-20 px-6 sm:px-12 bg-[#0e0e17] text-center"
       >
@@ -157,7 +147,7 @@ function Home() {
       {/* FOOTER */}
       <motion.footer
         initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        animate={{ opacity: 1 }} // ✅ changed
         transition={{ duration: 1 }}
         className="py-6 text-center text-sm text-gray-500 border-t border-gray-800"
       >

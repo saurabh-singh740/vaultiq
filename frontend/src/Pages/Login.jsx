@@ -64,7 +64,7 @@ function Login() {
         { email: formData.email, password: formData.password },
         { withCredentials: true }
       );
-      console.log(res.data.token)
+     
 
       if (res.status === 200) {
         // ✅ Save token in localStorage for later use (e.g., sharing prompts)
