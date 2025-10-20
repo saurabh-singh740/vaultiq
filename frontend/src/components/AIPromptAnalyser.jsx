@@ -3,7 +3,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { FaRobot, FaPaperPlane, FaLightbulb } from "react-icons/fa";
 
-const API_URL = "http://localhost:3000/api/ai/analyze";
+const API_URL = "https://vaultiq-37wz.onrender.com/api/ai/analyze";
 
 const AIPromptAnalyzer = () => {
   const [title, setTitle] = useState("");

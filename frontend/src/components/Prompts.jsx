@@ -15,7 +15,7 @@ function Prompts() {
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const API = "http://localhost:3000/api/prompts";
+  const API = "https://vaultiq-37wz.onrender.com/api/prompts";
 
   // ✅ Fetch prompts from backend (cookie-based auth)
   const fetchPrompts = async () => {

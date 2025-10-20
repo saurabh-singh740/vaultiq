@@ -33,7 +33,7 @@ const Register = () => {
         password: formData.password,
       };
 
-      await axios.post("http://localhost:3000/api/auth/register", payload, {
+      await axios.post("https://vaultiq-37wz.onrender.com/api/auth/register", payload, {
         withCredentials: true,
       });
 

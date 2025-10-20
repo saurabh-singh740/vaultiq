@@ -3,7 +3,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { FaShareAlt, FaUser, FaGlobe, FaStar } from "react-icons/fa";
 
-const API_URL = "http://localhost:3000/api/community";
+const API_URL = "https://vaultiq-37wz.onrender.com/api/community";
 
 // ✅ Reusable Prompt Card with animations + icons
 const PromptCard = ({ prompt, onView }) => (

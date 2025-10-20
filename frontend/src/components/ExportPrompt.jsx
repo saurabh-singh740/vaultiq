@@ -20,7 +20,7 @@ const ExportPrompts = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/export/${type}`,
+        `https://vaultiq-37wz.onrender.com/api/export/${type}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           responseType: "blob",
